@@ -1,13 +1,15 @@
 const React             = require('react');
 const { connect }       = require('react-redux');
-const { showTodos }     = require('../actions/actions');
+const { toggleColor }    = require('../actions/actions');
+const Todo              = require('./Todo').default;
 
-const Todos = ({todos}) => {
+const Todos = ({todos, onTodoClick}) => {
+    console.log(onTodoClick);
     console.log('todoS', todos);
     return (
         <div>
             <h1>test</h1>
-            {todos.map((todo, index) => <div key={index}>{todo.task}</div>)}
+            {todos.map((todo, index) => <Todo onClick={() => onTodoClick(index)} key={index}{...todo}/>)}
         </div>
     )
 }
@@ -20,22 +22,15 @@ const mapStateToProps = (state) => {
     }
 } 
 
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         dispatch(showTodos(todos))
-//     }
-// }
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onTodoClick: (index) => {
+            dispatch(toggleColor(index))
+        }
+    }
+}
 
-const TodoList = connect(mapStateToProps)(Todos);
-
-// const test = () => {
-//     return (
-//         <div>
-//             <h1>Todo List</h1>
-//         </div>
-//     )
-// }
+const TodoList = connect(mapStateToProps, mapDispatchToProps)(Todos);
 
 export default TodoList;
-// export default test;
 

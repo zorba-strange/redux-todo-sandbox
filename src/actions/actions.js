@@ -1,7 +1,7 @@
 // ACTIONS
 
 export const ADD_TODO       = 'ADD_TODO';
-export const SHOW_TODOS     = 'SHOW_TODOS';
+export const TOGGLE_COLOR   = 'TOGGLE_COLOR';
 
 export const addTodo = (task) => {
     console.log('action', task);
@@ -11,10 +11,10 @@ export const addTodo = (task) => {
     }
 }
 
-export const showTodos = (todos) => {
-    console.log('showAction', todos);
+export const toggleColor = (index) => {
+    console.log('color change');
     return {
-        type: SHOW_TODOS,
-        todos
+        type: TOGGLE_COLOR,
+        index
     }
 }

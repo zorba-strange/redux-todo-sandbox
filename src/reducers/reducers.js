@@ -1,5 +1,4 @@
-const { ADD_TODO }            = require('../actions/actions');
-const { SHOW_TODOS }            = require('../actions/actions');
+const { ADD_TODO, TOGGLE_COLOR }            = require('../actions/actions');
 
 const seed =  {
     todos: [
@@ -11,9 +10,9 @@ const seed =  {
 }
 
 const todoApp = (state=seed, action) => {
-    console.log('reduxer', state.todos);
     switch( action.type ){
         case ADD_TODO: 
+            console.log('added');
             return Object.assign({}, state, {
                 todos: [
                     ...state.todos,
@@ -24,10 +23,17 @@ const todoApp = (state=seed, action) => {
                 ]
             })
 
-        case SHOW_TODOS:
-            return {
-
-            }
+        case TOGGLE_COLOR:
+            return Object.assign({}, state, {
+                todos: state.todos.map((todo, index) => {
+                    if(index == action.index){
+                        return Object.assign({}, todo, {
+                            isDone: !todo.isDone
+                        })
+                    }
+                    return todo;
+                })
+            })
 
         default: 
             return state
